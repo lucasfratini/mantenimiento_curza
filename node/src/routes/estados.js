@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
       res.json(estadoGuardado);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ mensaje: 'Error al guardar el estado' });
+      res.status(500).json({ mensaje: error });
     }
   });
 

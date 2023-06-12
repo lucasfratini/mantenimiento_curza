@@ -1,13 +1,24 @@
 version: '3'
 services:
-  
+  react:
+    image: node:16
+    restart: always
+    volumes:
+      - ./react:/app
+    working_dir: /app
+    environment:
+      REACT_APP_NODE_URL: $NODE_URL
+    command: ['npm', 'start']
+    ports:
+      - $REACT_PORT:3000
+
   node:
     image: node:16
     restart: always
     volumes:
       - ./node:/app
     working_dir: /app
-    command: ['npm','start']
+    command: ['npm', 'start']
     ports:
       - 8000:8000
   
@@ -18,4 +29,3 @@ services:
       - ./data/mongo:/data/db
     ports:
       - 27017:27017
-

@@ -1,13 +1,16 @@
 import mongoose from 'mongoose';
-import { UsuarioSchema } from './usuario.js';
+import { UserSchema } from './user.js';
 import { EstadoSchema } from './estado.js';
 
 export const PedidoSchema = new mongoose.Schema({
     
-        usuario:UsuarioSchema,
-        fecha_creacion:date,       
+        user_id:UserSchema,        
         detalle:String,
         estado:EstadoSchema,
+        fecha:{
+            type:Date,
+            default:Date.now
+        }
     })
 
 export default mongoose.model('Pedido', PedidoSchema, 'pedidos');

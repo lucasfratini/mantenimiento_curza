@@ -4,8 +4,11 @@ import { EstadoSchema } from './estado.js';
 
 export const TareaSchema = new mongoose.Schema({
     
-        usuario:UsuarioSchema,
-        fecha_creacion:date,
+        user_id:UsuarioSchema,
+        fecha_creacion:{
+            type:date,
+            default:Date.now
+        },
         fecha_finalizacion:date,
         detalle:String,
         estado:EstadoSchema,

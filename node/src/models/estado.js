@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 export const EstadoSchema = new mongoose.Schema({
     nombre: {
         type: String,
+        unique:true
         
     },
 });
