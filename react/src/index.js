@@ -1,14 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import  App from './views/inicio';
-import './styles.css';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+//importamos bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+ReactDOM.render(
+ 
+    <App />,
   
-    <App />
-  
+  document.getElementById('root')
 );
 
 

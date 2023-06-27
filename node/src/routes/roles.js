@@ -15,13 +15,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { nombre } = req.body;     
-
-      // Crear una nueva instancia del modelo Estado
+        const { nombre } = req.body;         
         const nuevoRole = new Role({
             nombre
-        })  
-      // Guardar el nuevo estado en la base de datos
+        })        
         const roleGuardado = await nuevoRole.save();  
         res.json(roleGuardado);
         } catch (error) {
@@ -36,11 +33,11 @@ router.delete('/:id',async(req, res) => {
     if(id) {
         const role = await Role.findByIdAndDelete(id);
         if(!role){
-          res.status(404);
-          return res.send({
-              status: 'error',
-              error: "El Rol no existe"
-          });
+            res.status(404);
+            return res.send({
+                status: 'error',
+                error: "El Rol no existe"
+            });
         }
         res.status(200);
         return res.send(role);
@@ -52,5 +49,40 @@ router.delete('/:id',async(req, res) => {
         });
     }
 })
+router.get('/:id', async (req, res) => {
+    try {
+        const role = await Role.findById(req.params.id);  
+        if (!role) {
+        return res.status(404).json({ error: 'Rol  no encontrado' });
+        }  
+        res.json(role);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener el Rol' });
+    }
+})
+
+
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nombre } = req.body;      
+        const role = await Role.findByIdAndUpdate(
+        id,
+        { nombre },
+        { new: true }
+        );
+    
+        if (!role) {
+        res.status(404);
+        return res.json({ mensaje: 'El rol no existe' });
+        }
+    
+        res.json(role);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ mensaje: error });
+    }
+});
 
 export default router;

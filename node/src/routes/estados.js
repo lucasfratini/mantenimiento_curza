@@ -36,6 +36,29 @@ router.get('/', async (req, res) => {
       res.status(500).json({ mensaje: error });
     }
   });
+  router.put('/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { nombre } = req.body;
+    
+      // Buscar el estado por su ID
+      const estado = await Estado.findByIdAndUpdate(
+        id,
+        { nombre },
+        { new: true }
+      );
+    
+      if (!estado) {
+        res.status(404);
+        return res.json({ mensaje: 'El estado no existe' });
+      }
+    
+      res.json(estado);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ mensaje: error });
+    }
+  });
 
 router.delete('/:id',async(req, res) => {
     const {id} = req.params;
@@ -59,5 +82,20 @@ router.delete('/:id',async(req, res) => {
         });
     }
 })
+
+router.get('/:id', async (req, res) => {
+  try {
+    const estado = await Estado.findById(req.params.id);
+
+    if (!estado) {
+      return res.status(404).json({ error: 'Estado no encontrado' });
+    }
+
+    res.json(estado);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener el estado' });
+  }
+});
 
 export default router;
